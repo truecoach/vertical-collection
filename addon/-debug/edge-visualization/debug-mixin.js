@@ -33,8 +33,8 @@ export default Mixin.create({
     let styles;
 
     // check telescope
-    if (radar.scrollContainer !== ViewportContainer) {
-      styles = window.getComputedStyle(radar.scrollContainer);
+    if (radar._scrollContainer !== ViewportContainer) {
+      styles = window.getComputedStyle(radar._scrollContainer);
     } else {
       styles = window.getComputedStyle(document.body);
     }
@@ -44,12 +44,12 @@ export default Mixin.create({
     assert(`scrollContainer must define height or max-height`, hasStyleWithNonZeroValue(styles, 'height') || hasStyleWithNonZeroValue(styles, 'max-height'));
 
     // conditional perf check for non-body scrolling
-    if (radar.scrollContainer !== ViewportContainer) {
+    if (radar._scrollContainer !== ViewportContainer) {
       assert(`scrollContainer must define overflow-y`, hasStyleValue(styles, 'overflow-y', 'scroll') || hasStyleValue(styles, 'overflow', 'scroll'));
     }
 
     // check itemContainer
-    styles = window.getComputedStyle(radar.itemContainer);
+    styles = window.getComputedStyle(radar._itemContainer);
 
     assert(`itemContainer cannot be inline.`, styleIsOneOf(styles, 'display', ['block', 'inline-block', 'flex', 'inline-flex']));
     assert(`itemContainer must define position`, styleIsOneOf(styles, 'position', ['static', 'relative', 'absolute']));
