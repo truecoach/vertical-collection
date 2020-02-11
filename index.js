@@ -22,6 +22,10 @@ module.exports = {
     this.options = this.options || {};
   },
 
+  isDevelopingAddon() {
+    return true;
+  },
+
   getOutputDirForVersion() {
     let VersionChecker = require('ember-cli-version-checker');
     let checker = new VersionChecker(this);
