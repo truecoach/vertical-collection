@@ -489,13 +489,18 @@ export default class Radar {
     while (lastIndexInList < renderedLastItemIndex) {
       let component;
 
-      if (shouldRecycle === true) {
+      const itemIndex = ++lastIndexInList;
+      const item = objectAt(items, itemIndex);
+
+      if (shouldRecycle === true && this.key) {
+        const value = get(item, this.key);
+        const componentIndex = _componentPool.mapBy(`content.${this.key}`).indexOf(value);
+        component = componentIndex >= 0 ? _componentPool.splice(componentIndex, 1)[0] : new VirtualComponent();
+      } else if (shouldRecycle === true) {
         component = _componentPool.pop() || new VirtualComponent();
       } else {
         component = new VirtualComponent();
       }
-
-      const itemIndex = ++lastIndexInList;
 
       component.recycle(objectAt(items, itemIndex), itemIndex);
       this._appendComponent(component);
@@ -507,13 +512,18 @@ export default class Radar {
     while (firstIndexInList > renderedFirstItemIndex) {
       let component;
 
-      if (shouldRecycle === true) {
+      const itemIndex = --firstIndexInList;
+      const item = objectAt(items, itemIndex);
+
+      if (shouldRecycle === true && this.key) {
+        const value = get(item, this.key);
+        const componentIndex = _componentPool.mapBy(`content.${this.key}`).indexOf(value);
+        component = componentIndex >= 0 ? _componentPool.splice(componentIndex, 1)[0] : new VirtualComponent();
+      } else if (shouldRecycle === true) {
         component = _componentPool.pop() || new VirtualComponent();
       } else {
         component = new VirtualComponent();
       }
-
-      const itemIndex = --firstIndexInList;
 
       component.recycle(objectAt(items, itemIndex), itemIndex);
       this._prependComponent(component);
