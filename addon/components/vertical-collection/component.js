@@ -151,7 +151,10 @@ const VerticalCollection = Component.extend({
 
   RadarClass: computed({
     get() {
-      return this.staticHeight ? StaticRadar : DynamicRadar;
+      return this._RadarClass || this.staticHeight ? StaticRadar : DynamicRadar;
+    },
+    set(_, value) {
+      return this._RadarClass = value;
     }
   }),
 
