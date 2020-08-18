@@ -1,5 +1,3 @@
-import { DEBUG } from '@glimmer/env';
-
 import Radar from './radar';
 import SkipList from '../skip-list';
 import roundTo from '../utils/round-to';
@@ -20,10 +18,6 @@ export default class DynamicRadar extends Radar {
     this._nextIncrementalRender = null;
 
     this.skipList = null;
-
-    if (DEBUG) {
-      Object.preventExtensions(this);
-    }
   }
 
   destroy() {
